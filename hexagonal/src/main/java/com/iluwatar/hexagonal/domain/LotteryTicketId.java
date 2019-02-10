@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,18 @@
  */
 package com.iluwatar.hexagonal.domain;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Lottery ticked id
  */
 public class LotteryTicketId {
 
-  private static volatile int numAllocated;
+  private static AtomicInteger numAllocated = new AtomicInteger(0);
   private final int id;
   
   public LotteryTicketId() {
-    this.id = numAllocated + 1;
-    numAllocated++;
+    this.id = numAllocated.incrementAndGet();
   }
 
   public LotteryTicketId(int id) {
